@@ -10,7 +10,7 @@ export const getUser = async (req, res) => {
     req.params.id,
   ]);
   if (result.length === 0) {
-    return res.status(404).json({ message: "Task not foud" });
+    return res.status(404).json({ message: "User not foud" });
   }
   res.json(result[0]);
 };
@@ -27,7 +27,7 @@ export const createUser = async (req, res) => {
     location,
   } = req.body;
   const [result] = await pool.query(
-    "INTERT INTO Users(paternal_surname, maternal_surname, first_name, gender, username, password, rol, location) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+    "INSERT INTO Users(paternal_surname, maternal_surname, first_name, gender, username, password, rol, location) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
     [
       paternal_surname,
       maternal_surname,
@@ -62,12 +62,12 @@ export const updateUser = async (req, res) => {
 };
 
 export const deleteUser = async (req, res) => {
-    const [result] = await pool.query("DELETE FROM Users WHERE id = ?", [
+    const [result] = await pool.query("DELETE FROM Users WHERE idUser = ?", [
         req.params.id,
     ]);
 
     if (result.affectedRows === 0) {
-        return res.status(404).json({ message: "Task not found" });
+        return res.status(404).json({ message: "User not found" });
     }
 
     return res.sendStatus(204);

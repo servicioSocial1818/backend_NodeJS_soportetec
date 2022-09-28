@@ -11,7 +11,7 @@ const router = Router();
 
 router.get("/users", getUsers);
 
-router.get("/taks/:id", getUser);
+router.get("/users/:id", getUser);
 
 router.post("/users", createUser);
 
