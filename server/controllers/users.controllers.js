@@ -1,34 +1,31 @@
 import { pool } from "../db.js";
 
 export const getUsers = async (req, res) => {
-  const [result] = await pool.query("SELECT * FROM Users");
-  res.json(result);
+  try {
+    const [result] = await pool.query("SELECT * FROM Users");
+    res.json(result);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
 };
 
 export const getUser = async (req, res) => {
-  const [result] = await pool.query("SELECT * FROM Users WHERE idUser = ?", [
-    req.params.id,
-  ]);
-  if (result.length === 0) {
-    return res.status(404).json({ message: "User not foud" });
+  try {
+    const [result] = await pool.query("SELECT * FROM Users WHERE idUser = ?", [
+      req.params.id,
+    ]);
+    if (result.length === 0) {
+      return res.status(404).json({ message: "User not foud" });
+    }
+    res.json(result[0]);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
   }
-  res.json(result[0]);
 };
 
 export const createUser = async (req, res) => {
-  const {
-    paternal_surname,
-    maternal_surname,
-    first_name,
-    gender,
-    username,
-    password,
-    rol,
-    location,
-  } = req.body;
-  const [result] = await pool.query(
-    "INSERT INTO Users(paternal_surname, maternal_surname, first_name, gender, username, password, rol, location) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-    [
+  try {
+    const {
       paternal_surname,
       maternal_surname,
       first_name,
@@ -37,38 +34,61 @@ export const createUser = async (req, res) => {
       password,
       rol,
       location,
-    ]
-  );
-  console.log(result);
-  res.json({
-    id: result.insertId,
-    paternal_surname,
-    maternal_surname,
-    first_name,
-    gender,
-    username,
-    password,
-    rol,
-    location,
-  });
+    } = req.body;
+    const [result] = await pool.query(
+      "INSERT INTO Users(paternal_surname, maternal_surname, first_name, gender, username, password, rol, location) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+      [
+        paternal_surname,
+        maternal_surname,
+        first_name,
+        gender,
+        username,
+        password,
+        rol,
+        location,
+      ]
+    );
+    console.log(result);
+    res.json({
+      id: result.insertId,
+      paternal_surname,
+      maternal_surname,
+      first_name,
+      gender,
+      username,
+      password,
+      rol,
+      location,
+    });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
 };
 
 export const updateUser = async (req, res) => {
+  try {
     const result = await pool.query("UPDATE Users SET ? WHERE idUser = ?", [
-        req.body,
-        req.params.id,
+      req.body,
+      req.params.id,
     ]);
     res.json(result);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
 };
 
 export const deleteUser = async (req, res) => {
+  try {
     const [result] = await pool.query("DELETE FROM Users WHERE idUser = ?", [
-        req.params.id,
+      req.params.id,
     ]);
 
     if (result.affectedRows === 0) {
-        return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ message: "User not found" });
     }
 
     return res.sendStatus(204);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
 };
