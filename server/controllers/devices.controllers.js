@@ -66,6 +66,22 @@ export const createDevice = async (req, res) => {
   });
 };
 
-export const updateDevice = (req, res) => {};
+export const updateDevice = async (req, res) => {
+  const result = await pool.query("UPDATE Devices SET ? WHERE idDevice = ?", [
+    req.body,
+    req.params.id,
+  ]);
+  res.json(result)
+};
 
-export const deleteDevice = (req, res) => {};
+export const deleteDevice = (req, res) => {
+  const result = pool.query("DELETE FROM Devices WHERE idDevice = ? ",[
+    req.params.id,
+  ]);
+
+  if (result.affectedRows === 0) {
+    return res.status(404).json({ message: "Device not found" })
+  }
+
+  return res.sendStatus(400);
+};
