@@ -3,11 +3,12 @@ import {PORT} from './config.js'
 import indexRoutes from './routes/index.routes.js'
 import userRoutes from './routes/users.routes.js'
 import deviceRoutes from './routes/devices.routes.js'
-
+import assignmentRoutes from './routes/assignments.routes.js'
 const app = express();
 
 app.use(express.json());
 
+app.use(assignmentRoutes);
 app.use(indexRoutes);
 app.use(userRoutes);
 app.use(deviceRoutes);
