@@ -18,6 +18,6 @@ route.post('/assignments', createAssignment);
 
 route.put('/assignments/:id', updateAssignment);
 
-route.delete('/assignments', deleteAssignment);
+route.delete('/assignments/:id', deleteAssignment);
 
 export default route;

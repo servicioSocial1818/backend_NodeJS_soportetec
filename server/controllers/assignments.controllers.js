@@ -19,7 +19,7 @@ export const getAssignment = async (req, res) => {
         if (result.length === 0) {
             return res.status(404).json({ message: "Assignment not found" })
         }
-        req.json(result[0]);
+        res.json(result[0]);
         
     } catch (error) {
         return res.status(500).json({ message: error.message });
@@ -65,9 +65,9 @@ export const updateAssignment = async (req, res) => {
     }
 }
 
-export const deleteAssignment = (req, res) => {
+export const deleteAssignment = async (req, res) => {
     try {
-        const result = pool.query("DELETE FROM Assignments WHERE idAssignment = ?",[
+        const [result] = await pool.query("DELETE FROM Assignments WHERE idAssignment = ?",[
             req.params.id,
         ]);
     
