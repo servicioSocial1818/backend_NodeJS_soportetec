@@ -16,12 +16,7 @@ FROM Roles
 INNER JOIN Users
 ON Roles.idRole = Users.rol;
 
-SELECT Users.first_name, Users.paternal_surname, Users.maternal_surname, 
-Users.username, Roles.role_name, Users.location, Users.phoneNumber, 
-Users.email, Users.gender
-FROM Users
-INNER JOIN Roles 
-ON Users.rol = Roles.idRole;
+SELECT Users.idUser, Users.first_name, Users.paternal_surname, Users.maternal_surname, Users.username, Roles.role_name, Users.location, Users.phoneNumber, Users.email, Users.gender FROM Users INNER JOIN Roles ON Users.rol = Roles.idRole;
 
 SELECT * FROM Users;
 CREATE TABLE Users (

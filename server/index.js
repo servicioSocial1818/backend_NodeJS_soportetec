@@ -6,6 +6,7 @@ import deviceRoutes from './routes/devices.routes.js'
 import assignmentRoutes from './routes/assignments.routes.js'
 import cors from 'cors';
 
+
 const app = express();
 
 app.use(cors());

@@ -2,7 +2,7 @@ import { pool } from "../db.js";
 
 export const getUsers = async (req, res) => {
   try {
-    const [result] = await pool.query("SELECT * FROM Users");
+    const [result] = await pool.query("SELECT Users.idUser, Users.first_name, Users.paternal_surname, Users.maternal_surname, Users.username, Roles.role_name, Users.location, Users.phoneNumber, Users.email, Users.gender FROM Users INNER JOIN Roles ON Users.rol = Roles.idRole; ");
     res.json(result);
   } catch (error) {
     return res.status(500).json({ message: error.message });
