@@ -54,7 +54,7 @@ export const createUser = async (req, res) => {
         location,
       ]
     );
-    console.log(result);
+    // console.log(result);
     res.json({
       id: result.insertId,
       paternal_surname,
