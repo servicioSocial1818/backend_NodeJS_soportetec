@@ -1,11 +1,11 @@
 import { createPool } from 'mysql2/promise'
 
 export const pool = new createPool({
-    host: 'b7nut3qsfo0ukry1crza-mysql.services.clever-cloud.com',
+    host: '31.22.4.229',
     port: 3306,
-    user: 'uzcycmmmn7hwrkrw',
-    password: 'XfzvTQI1FIgRGPAWCDSQ',
-    database: 'b7nut3qsfo0ukry1crza'
+    user: 'suacdaps_adminSoporte',
+    password: 'bintec123',
+    database: 'suacdaps_soportetec'
 })
 
 
