@@ -3,7 +3,7 @@ import { pool } from "../db.js";
 export const getAssignments = async (req, res) => {
 
     try {
-        const [result] = await pool.query("SELECT * FROM Assignments");
+        const [result] = await pool.query("SELECT Assignments.idAssignment, Users.first_name, Users.paternal_surname, Users.maternal_surname, Devices.trademark, Assignments.manager, Devices.serie_number FROM ((Assignments LEFT JOIN Users ON Assignments.idUser = Users.idUser) LEFT JOIN Devices ON Assignments.idDevice = Devices.idDevice)");
         res.json(result);
         
     } catch (error) {
