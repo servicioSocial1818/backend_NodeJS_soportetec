@@ -87,7 +87,21 @@ export const updateUser = async (req, res) => {
 };
 
 export const deleteUser = async (req, res) => {
+  let user;
+  try{
+      user = await pool.query("SELECT Assignments, Users FROM Assignments INNER JOIN Users ON Assignments.idUser = Users.idUser WHERE Users.idUser = ? ", [
+      req.params.id,
+    ]);
+  } catch (err) {
+    console.log(err)
+  }
   try {
+    if (!user) {
+      user = await pool.query("DELETE FROM Users WHERE idUser = ?", [
+        req.params.id,
+      ]);
+      return res.sendStatus(204);
+    }
     const [result] = await pool.query("DELETE Assignments, Users FROM Assignments INNER JOIN Users ON Assignments.idUser = Users.idUser WHERE Users.idUser = ? ", [
       req.params.id,
     ]);
