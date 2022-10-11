@@ -91,7 +91,6 @@ export const deleteUser = async (req, res) => {
     const [result] = await pool.query("DELETE Assignments, Users FROM Assignments INNER JOIN Users ON Assignments.idUser = Users.idUser WHERE Users.idUser = ? ", [
       req.params.id,
     ]);
-    "DELETE FROM Assignments WHERE idAssignment = ?"
     if (result.affectedRows === 0) {
       return res.status(404).json({ message: "User not found" });
     }
