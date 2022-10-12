@@ -3,7 +3,7 @@ import { pool } from "../db.js";
 export const getArticles = async (req, res) => {
   try {
     const [articles] = await pool.query("SELECT * FROM Articles");
-    if (!articles.lenght) {
+    if (!articles.length) {
       return res.status(404).json({ message: "Articles not found" });
     }
     return res.json(articles);
@@ -17,7 +17,7 @@ export const getArticle = async (req, res) => {
     const [articles] = await pool.query("SELECT * FROM Articles WHERE idArticle = ?", [
       req.params.id,
     ]);
-    if (!articles.lenght) {
+    if (!articles.length) {
       return res.status(404).json({ message: "Article not found" });
     }
     return res.json(articles);

@@ -5,7 +5,8 @@ import {
     getAssignments,
     createAssignment,
     updateAssignment,
-    deleteAssignment
+    deleteAssignment,
+    getAssignmentsWithoutUser
 } from '../controllers/assignments.controllers.js'
 
 const route = Router();
@@ -13,6 +14,8 @@ const route = Router();
 route.get('/assignments', getAssignments);
 
 route.get('/assignments/:id', getAssignment);
+
+route.get('/assignments-no-users', getAssignmentsWithoutUser);
 
 route.post('/assignments', createAssignment);
 
