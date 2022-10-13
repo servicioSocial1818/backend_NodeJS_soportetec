@@ -25,6 +25,17 @@ export const getAssignmentsWithoutUser = async (req, res) => {
     }
 }
 
+export const getAssignmentsWithoutDevice = async (req, res) => {
+    try {
+        const [result] = await pool.query (`SELECT Devices.idDevice, Devices.serie_number, Devices.trademark, Devices.model, Devices.storage_device, Devices.ram, Assignments.idAssignment
+        FROM Devices
+        LEFT OUTER JOIN Assignments ON Assignments.idAssignment = Devices.idDevice WHERE Assignments.idAssignment IS NULL;`);
+        res.json(result);
+    } catch (error) {
+        return res.status(500).json({ message: error.message })
+    }
+}
+
 export const getAssignment = async (req, res) => {
     try {
         const [result] = await pool.query("SELECT * FROM Assignments WHERE idAssignment = ?",[
