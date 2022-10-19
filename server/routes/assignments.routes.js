@@ -24,6 +24,6 @@ route.post('/assignments', createAssignment);
 
 route.put('/assignments/:id', updateAssignment);
 
-route.delete('/assignments/:id', deleteAssignment);
+route.delete('/assignments/:id/user/:id/device/:id', deleteAssignment);
 
 export default route;

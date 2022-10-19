@@ -2,7 +2,9 @@ import { pool } from "../db.js";
 
 export const getUsers = async (req, res) => {
   try {
-    const [result] = await pool.query("SELECT Users.idUser, Users.first_name, Users.paternal_surname, Users.maternal_surname, Users.username, Roles.role_name, Users.location, Users.phoneNumber, Users.email, Users.gender FROM Users INNER JOIN Roles ON Users.rol = Roles.idRole; ");
+    const [result] = await pool.query(
+      "SELECT Users.idUser, Users.first_name, Users.paternal_surname, Users.maternal_surname, Users.username, Roles.role_name, Users.location, Users.phoneNumber, Users.email, Users.gender FROM Users INNER JOIN Roles ON Users.rol = Roles.idRole; "
+    );
     res.json(result);
   } catch (error) {
     return res.status(500).json({ message: error.message });
@@ -87,30 +89,34 @@ export const updateUser = async (req, res) => {
 };
 
 export const deleteUser = async (req, res) => {
-  let user;
-  try{
-      user = await pool.query("SELECT Assignments, Users FROM Assignments INNER JOIN Users ON Assignments.idUser = Users.idUser WHERE Users.idUser = ? ", [
-      req.params.id,
-    ]);
-  } catch (err) {
-    console.log(err)
-  }
+  
   try {
-    if (!user) {
-      user = await pool.query("DELETE FROM Users WHERE idUser = ?", [
-        req.params.id,
-      ]);
-      return res.sendStatus(204);
-    }
-    const [result] = await pool.query("DELETE Assignments, Users FROM Assignments INNER JOIN Users ON Assignments.idUser = Users.idUser WHERE Users.idUser = ? ", [
-      req.params.id,
-    ]);
+    const [result] = await pool.query("call deleteUser(?); ", [req.params.id]);
+
     if (result.affectedRows === 0) {
       return res.status(404).json({ message: "User not found" });
     }
-
     return res.sendStatus(204);
-  } catch (error) {
-    return res.status(500).json({ message: error.message });
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
   }
+  // try {
+  //   if (!user) {
+  //     user = await pool.query("DELETE FROM Users WHERE idUser = ?", [
+  //       req.params.id,
+  //     ]);
+  //     return res.sendStatus(204);
+  //   }
+  //   const [result] = await pool.query(
+  //     "DELETE Assignments, Users FROM Assignments INNER JOIN Users ON Assignments.idUser = Users.idUser WHERE Users.idUser = ? ",
+  //     [req.params.id]
+  //   );
+  //   if (result.affectedRows === 0) {
+  //     return res.status(404).json({ message: "User not found" });
+  //   }
+
+  //   return res.sendStatus(204);
+  // } catch (error) {
+  //   return res.status(500).json({ message: error.message });
+  // }
 };

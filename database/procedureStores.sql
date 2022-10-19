@@ -30,3 +30,15 @@ UPDATE Users SET assignment = 0 WHERE idUser = p_idUser;
 UPDATE Devices SET assignment = 0 WHERE idDevice = p_idDevice;
 END $$
 DELIMITER ;
+
+-- Eliminar usuario y a su vez su registro de asignación
+DELIMITER $$
+CREATE PROCEDURE deleteUser(
+    IN p_idUser INTEGER
+)
+BEGIN
+DELETE FROM Assignments WHERE idUser = p_idUser;
+
+DELETE FROM Users WHERE idUser = p_idUser;
+END $$
+DELIMITER ;

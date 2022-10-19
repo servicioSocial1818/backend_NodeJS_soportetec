@@ -84,14 +84,14 @@ export const updateAssignment = async (req, res) => {
 export const deleteAssignment = async (req, res) => {
   try {
     const {
+        idAssignment, //not null
         idUser, //not null
         idDevice, //not null
-        idAssignment, //not null
       } = req.body;
 
     const [result] = await pool.query(
       "call deleteAssignment(?, ?, ?);",
-      [idUser, idDevice, idAssignment]
+      [idAssignment, idUser, idDevice ]
     );
 
     if (result.affectedRows === 0) {
