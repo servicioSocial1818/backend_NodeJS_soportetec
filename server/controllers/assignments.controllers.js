@@ -13,7 +13,9 @@ export const getAssignments = async (req, res) => {
 
 export const getAssignmentsWithoutUser = async (req, res) => {
   try {
-    const [result] = await pool.query(`SELECT * FROM Users WHERE assignment = false;`);
+    const [result] = await pool.query(
+      `SELECT * FROM Users WHERE assignment = false;`
+    );
     res.json(result);
   } catch (error) {
     return res.status(500).json({ message: error.message });
@@ -22,8 +24,9 @@ export const getAssignmentsWithoutUser = async (req, res) => {
 
 export const getAssignmentsWithoutDevice = async (req, res) => {
   try {
-    const [result] =
-      await pool.query(`SELECT * FROM Devices WHERE assignment = false`);
+    const [result] = await pool.query(
+      `SELECT * FROM Devices WHERE assignment = false`
+    );
     res.json(result);
   } catch (error) {
     return res.status(500).json({ message: error.message });
@@ -53,10 +56,11 @@ export const createAssignment = async (req, res) => {
       manager, //not null
     } = req.body;
 
-    const [result] = await pool.query(
-      "call addAssignment(?, ?, ?);",
-      [idUser, idDevice, manager]
-    );
+    const [result] = await pool.query("call addAssignment(?, ?, ?);", [
+      idUser,
+      idDevice,
+      manager,
+    ]);
 
     res.json({
       id: result.insertId,
@@ -83,16 +87,12 @@ export const updateAssignment = async (req, res) => {
 
 export const deleteAssignment = async (req, res) => {
   try {
-    const {
-        idAssignment, //not null
-        idUser, //not null
-        idDevice, //not null
-      } = req.body;
-
-    const [result] = await pool.query(
-      "call deleteAssignment(?, ?, ?);",
-      [idAssignment, idUser, idDevice ]
-    );
+    const { idAssignment, idUser, idDevice } = req.body;
+    const [result] = await pool.query("call deleteAssignment(?, ?, ?);", [
+      idAssignment,
+      idUser,
+      idDevice,
+    ]);
 
     if (result.affectedRows === 0) {
       return res.status(404).json({ message: "Assignment not found" });
