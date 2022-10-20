@@ -96,7 +96,7 @@ export const updateDevice = async (req, res) => {
 
 export const deleteDevice = async (req, res) => {
   try {
-    const result = await pool.query("DELETE FROM Devices WHERE idDevice = ? ",[
+    const result = await pool.query(`call deleteDevice(?)`,[
       req.params.id,
     ]);
   

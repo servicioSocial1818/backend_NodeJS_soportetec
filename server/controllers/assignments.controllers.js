@@ -88,6 +88,7 @@ export const updateAssignment = async (req, res) => {
 export const deleteAssignment = async (req, res) => {
   try {
     const { idAssignment, idUser, idDevice } = req.body;
+
     const [result] = await pool.query("call deleteAssignment(?, ?, ?);", [
       idAssignment,
       idUser,

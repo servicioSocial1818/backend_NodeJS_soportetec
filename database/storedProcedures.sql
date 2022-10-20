@@ -42,3 +42,37 @@ DELETE FROM Assignments WHERE idUser = p_idUser;
 DELETE FROM Users WHERE idUser = p_idUser;
 END $$
 DELIMITER ;
+
+-- Eliminar usuario, su registro de asignacion y actualizar el equipo que tenía a  "false" = no asignado
+DELIMITER $$
+CREATE PROCEDURE deleteUser(
+    IN p_idUser INTEGER
+)
+BEGIN
+
+UPDATE Devices 
+INNER JOIN Assignments ON Assignments.idUser = p_idUser
+SET assignment = 0 
+WHERE Devices.idDevice = Assignments.idDevice;
+
+DELETE FROM Assignments WHERE idUser = p_idUser;
+
+DELETE FROM Users WHERE idUser = p_idUser;
+END $$
+DELIMITER ;
+
+-- Eliminar Equipo, su registro de asignacion y actualizar el usuario que tenía como propietario a "false" = sin asignación
+DELIMITER $$
+CREATE PROCEDURE deleteDevice(
+    IN p_idDevice INTEGER
+)
+BEGIN
+UPDATE Users 
+INNER JOIN Assignments ON Assignments.idDevice = p_idDevice
+SET assignment = 0 
+WHERE Users.idUser = Assignments.idUser;
+
+DELETE FROM Assignments WHERE idDevice = p_idDevice;
+DELETE FROM Devices WHERE idDevice = p_idDevice;
+END $$
+DELIMITER ;
