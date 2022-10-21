@@ -28,7 +28,7 @@ export const getDevice = async (req, res) => {
 export const createDevice = async (req, res) => {
   try {
     const {
-      description_device, //not null
+      description_device,
       serie_number, //default null
       device_type, // not null
       trademark, 
