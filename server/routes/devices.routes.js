@@ -9,14 +9,14 @@ import {
 
 const router = Router();
 
-router.get("/devices", getDevices);
+router.get("/api/devices", getDevices);
 
-router.get("/devices/:id", getDevice);
+router.get("/api/devices/:id", getDevice);
 
-router.post("/devices", createDevice);
+router.post("/api/devices", createDevice);
 
-router.put("/devices/:id", updateDevice);
+router.put("/api/devices/:id", updateDevice);
 
-router.delete("/devices/:id", deleteDevice);
+router.delete("/api/devices/:id", deleteDevice);
 
 export default router;

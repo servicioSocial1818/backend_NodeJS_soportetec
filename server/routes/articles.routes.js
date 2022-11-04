@@ -10,14 +10,14 @@ import {
 
 const route = Router();
 
-route.get('/articles', getArticles);
+route.get('/api/articles', getArticles);
 
-route.get('/articles/:id', getArticle);
+route.get('/api/articles/:id', getArticle);
 
-route.post('/articles', createArticle);
+route.post('/api/articles', createArticle);
 
-route.put('/articles/:id', updateArticle);
+route.put('/api/articles/:id', updateArticle);
 
-route.delete('/articles/:id', deleteArticle);
+route.delete('/api/articles/:id', deleteArticle);
 
 export default route;

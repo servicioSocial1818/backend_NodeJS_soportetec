@@ -12,18 +12,18 @@ import {
 
 const route = Router();
 
-route.get('/assignments', getAssignments);
+route.get('/api/assignments', getAssignments);
 
-route.get('/assignments/:id', getAssignment);
+route.get('/api/assignments/:id', getAssignment);
 
 //route.get('/assignments-no-users', getAssignmentsWithoutUser);
 
-route.get('/assignments-no-devices', getAssignmentsWithoutDevice);
+route.get('/api/assignments-no-devices', getAssignmentsWithoutDevice);
 
-route.post('/assignments', createAssignment);
+route.post('/api/assignments', createAssignment);
 
-route.put('/assignments/:id', updateAssignment);
+route.put('/api/assignments/:id', updateAssignment);
 
-route.delete('/assignments/:id', deleteAssignment);
+route.delete('/api/assignments/:id', deleteAssignment);
 
 export default route;
