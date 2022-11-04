@@ -6,7 +6,7 @@ import {
     createAssignment,
     updateAssignment,
     deleteAssignment,
-    getAssignmentsWithoutUser,
+    //getAssignmentsWithoutUser,
     getAssignmentsWithoutDevice
 } from '../controllers/assignments.controllers.js'
 
@@ -16,7 +16,7 @@ route.get('/assignments', getAssignments);
 
 route.get('/assignments/:id', getAssignment);
 
-route.get('/assignments-no-users', getAssignmentsWithoutUser);
+//route.get('/assignments-no-users', getAssignmentsWithoutUser);
 
 route.get('/assignments-no-devices', getAssignmentsWithoutDevice);
 
@@ -24,6 +24,6 @@ route.post('/assignments', createAssignment);
 
 route.put('/assignments/:id', updateAssignment);
 
-route.delete('/assignments', deleteAssignment);
+route.delete('/assignments/:id', deleteAssignment);
 
 export default route;

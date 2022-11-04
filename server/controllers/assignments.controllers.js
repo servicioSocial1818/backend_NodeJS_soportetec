@@ -10,17 +10,17 @@ export const getAssignments = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
-
+/*
 export const getAssignmentsWithoutUser = async (req, res) => {
   try {
     const [result] = await pool.query(
-      `SELECT * FROM Users WHERE assignment = false;`
+      `SELECT * FROM Users;`
     );
     res.json(result);
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
-};
+};*/
 
 export const getAssignmentsWithoutDevice = async (req, res) => {
   try {
@@ -87,13 +87,9 @@ export const updateAssignment = async (req, res) => {
 
 export const deleteAssignment = async (req, res) => {
   try {
-    const { idAssignment, idUser, idDevice } = req.body;
+    
 
-    const [result] = await pool.query("call deleteAssignment(?, ?, ?);", [
-      idAssignment,
-      idUser,
-      idDevice,
-    ]);
+    const [result] = await pool.query("call deleteAssignment(?);", [req.params.id]);
 
     if (result.affectedRows === 0) {
       return res.status(404).json({ message: "Assignment not found" });

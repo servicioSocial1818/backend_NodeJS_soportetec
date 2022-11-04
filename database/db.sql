@@ -58,8 +58,6 @@ BEGIN
 INSERT INTO Assignments(idUser, idDevice, manager) 
 	VALUES (p_idUser, p_idDevice, p_manager);
 
-UPDATE Users SET assignment = 1 WHERE idUser = p_idUser;
-
 UPDATE Devices SET assignment = 1 WHERE idDevice = p_idDevice;
 END $$
 DELIMITER ;

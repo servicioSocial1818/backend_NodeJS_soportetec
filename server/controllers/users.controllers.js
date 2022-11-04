@@ -1,4 +1,5 @@
 import { pool } from "../db.js";
+import * as bcrypt from "bcrypt";
 
 export const getUsers = async (req, res) => {
   try {
@@ -40,20 +41,32 @@ export const createUser = async (req, res) => {
       rol,
       location,
     } = req.body;
+
+    // const [listado] = await pool.query("SELECT Users.username FROM Users");
+    // console.log(listado);
+    // const usuario = listado.map(element => { return element.username === username});
+    
+    // if (usuario) {
+    //   return res.status(400).json({ msg: "El usuario ya está registrado" })
+    // }
+
+    const salt = await bcrypt.genSalt(10);
+    await bcrypt.hash(password, salt)
+
     const [result] = await pool.query(
       "INSERT INTO Users(paternal_surname, maternal_surname, first_name, date_birth, gender, phoneNumber, email, username, password, rol, location) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
       [
-        paternal_surname,
-        maternal_surname,
-        first_name,
+        paternal_surname, //not null
+        maternal_surname, //not null
+        first_name, //not null
         date_birth,
         gender,
         phoneNumber,
         email,
-        username,
-        password,
-        rol,
-        location,
+        username, //not null
+        password, //not null
+        rol, //not null
+        location, //not null
       ]
     );
     // console.log(result);
@@ -89,7 +102,6 @@ export const updateUser = async (req, res) => {
 };
 
 export const deleteUser = async (req, res) => {
-  
   try {
     const [result] = await pool.query("call deleteUser(?); ", [req.params.id]);
 

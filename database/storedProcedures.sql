@@ -50,14 +50,14 @@ CREATE PROCEDURE deleteUser(
 )
 BEGIN
 
-UPDATE Devices 
-INNER JOIN Assignments ON Assignments.idUser = p_idUser
-SET assignment = 0 
-WHERE Devices.idDevice = Assignments.idDevice;
+    UPDATE Devices 
+    INNER JOIN Assignments ON Assignments.idUser = p_idUser
+    SET assignment = 0 
+    WHERE Devices.idDevice = Assignments.idDevice;
 
-DELETE FROM Assignments WHERE idUser = p_idUser;
+    DELETE FROM Assignments WHERE idUser = p_idUser;
 
-DELETE FROM Users WHERE idUser = p_idUser;
+    DELETE FROM Users WHERE idUser = p_idUser;
 END $$
 DELIMITER ;
 
@@ -67,12 +67,31 @@ CREATE PROCEDURE deleteDevice(
     IN p_idDevice INTEGER
 )
 BEGIN
+/*
 UPDATE Users 
 INNER JOIN Assignments ON Assignments.idDevice = p_idDevice
 SET assignment = 0 
 WHERE Users.idUser = Assignments.idUser;
-
+*/
 DELETE FROM Assignments WHERE idDevice = p_idDevice;
 DELETE FROM Devices WHERE idDevice = p_idDevice;
+END $$
+DELIMITER ;
+
+
+-- eliminar asignación con el id del equipo y actualizar el estado de asignación del equipo
+DELIMITER $$
+CREATE PROCEDURE deleteAssignment(
+	IN p_idDevice INTEGER
+)
+BEGIN
+
+UPDATE Devices 
+INNER JOIN Assignments ON Assignments.idDevice = Devices.idDevice
+SET Devices.assignment = 0 WHERE Assignments.idDevice = p_idDevice;
+
+DELETE FROM Assignments WHERE idDevice = p_idDevice;
+
+
 END $$
 DELIMITER ;
